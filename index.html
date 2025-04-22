@@ -28,6 +28,8 @@
     .card { max-width: 800px; margin: auto; background: rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); animation: fadeIn 1s ease-out; overflow: hidden; position: relative; }
     header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; text-align: center; padding: 80px 20px 120px; }
     .crest { position: absolute; top: 20px; left: 20px; width: 90px; }
+    /* Mute button style */
+    .mute-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
     .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: glow 2s infinite alternate; }
     .subtitle { font-size: 1.5rem; font-weight: 400; margin-bottom: 24px; }
     .shields { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 24px; }
@@ -62,6 +64,7 @@
   <div class="card" id="cardContainer">
     <header class="cover">
       <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="crest">
+      <button id="muteBtn" class="mute-btn" title="Apaga música">🔇</button>
       <h2 class="main-title">26 Anys de Passió</h2>
       <h3 class="subtitle">Amb tu, tot és blaugrana</h3>
       <div class="shields">
@@ -97,6 +100,19 @@
     const confettiCanvas = document.getElementById('confetti-canvas');
     const galleryImgs = document.querySelectorAll('.gallery img');
     const lightbox = document.getElementById('lightbox');
+    const audio = document.getElementById('hoverAudio');
+    const muteBtn = document.getElementById('muteBtn');
+
+    // Botó per apagar/posar música
+    muteBtn.addEventListener('click', () => {
+      if (!audio.paused) {
+        audio.pause();
+        muteBtn.textContent = '🔈';
+      } else {
+        audio.play();
+        muteBtn.textContent = '🔇';
+      }
+    });
 
     function launchConfetti() {
       const myConfetti = confetti.create(confettiCanvas, { resize: true });
@@ -116,11 +132,8 @@
       document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
     }
     openBtn.addEventListener('click', () => {
-      // Reproduir àudio
-      const audio = document.getElementById('hoverAudio');
       audio.currentTime = 0;
       audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
-      // Mostrar felicitació
       intro.style.display = 'none';
       card.style.display = 'block';
       confettiCanvas.style.display = 'block';
