@@ -4,66 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>🎂 26è Aniversari Ariadna</title>
-  <!-- SEO Meta -->
+  <!-- SEO & Open Graph Meta -->
   <meta name="description" content="Celebrem el 26è aniversari de l'Ariadna amb una felicitació especial i entrades per al Barça vs Inter el 30 d’abril de 2025.">
-  <!-- Open Graph Meta -->
   <meta property="og:title" content="Feliç 26è Aniversari, Ariadna!">
-  <meta property="og:description" content="Celebrem el teu dia amb amor, confeti i entrades per veure la semifinal Barça vs Inter. Vols ser la meva princesa?">
+  <meta property="og:description" content="Celebrem el teu dia amb amor, confeti i un mini joc per desxifrar la paraula misteriosa!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jordiguell.github.io/FELICITACI-/">
-  <meta property="og:image" content="https://jordiguell.github.io/FELICITACI-/i.imgur.com/22TRXPn.png">
+  <meta property="og:image" content="https://jordiguell.github.io/FELICITACI-/22TRXPn.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
-    :root { --primary: #003a6c; --secondary: #a40034; --glow: rgba(255,255,255,0.8); }
+    :root { --primary: #003a6c; --secondary: #a40034; --glow: rgba(255,255,255,0.8); --correct: #4caf50; --present: #ffeb3b; --absent: #212121; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: auto; overflow-y: auto; font-family: 'Montserrat', sans-serif; }
+    html, body { font-family: 'Montserrat', sans-serif; overflow-y: auto; height: auto; }
     body { background: url('https://www.fcbarcelona.com/photo-resources/2023/09/27/8d5e5d95-014e-400c-aa2a-7cc9fdc803ef/FCB_Celta-001.jpg?width=1200&height=750') center center / cover no-repeat fixed; }
+    @keyframes sparkle { 0%,100% { text-shadow: 0 0 5px var(--glow);} 50% { text-shadow: 0 0 20px var(--glow), 0 0 30px var(--glow);} }
+    @keyframes fadeIn { from { opacity: 0;} to { opacity: 1;} }
+    @keyframes pulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+    @keyframes floatUpDown { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-10px);} }
     #intro { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; }
-    #intro h1 { font-size: 3rem; text-shadow: 0 0 10px #000; margin-bottom: 16px; animation: glow 2s infinite alternate; }
-    #intro p { font-size: 1.2rem; margin-bottom: 24px; max-width: 600px; }
-    #intro button { padding: 14px 32px; font-size: 1.2rem; background: var(--secondary); color: #fff; border: none; border-radius: 8px; cursor: pointer; animation: pulse 2s infinite; }
+    #intro h1 { font-size: 3rem; animation: sparkle 2s infinite; }
+    #intro p { margin: 16px 0; font-size: 1.2rem; max-width: 600px; }
+    #intro button { padding: 12px 24px; background: var(--secondary); border: none; border-radius: 8px; color: #fff; font-size: 1rem; cursor: pointer; animation: pulse 2s infinite; }
     #intro button:hover { background: var(--primary); }
     #cardContainer, #confetti-canvas { display: none; }
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    @keyframes glow { from { text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow); } to { text-shadow: 0 0 20px var(--glow), 0 0 30px var(--glow); } }
-    @keyframes pulse { 0%{ transform: scale(1);} 50%{ transform: scale(1.05);} 100%{ transform: scale(1);} }
-    @keyframes slideInLeft { from { transform: translateX(-150%); opacity: 0;} to { transform: translateX(0); opacity: 1;} }
-    @keyframes slideInRight { from { transform: translateX(150%); opacity: 0;} to { transform: translateX(0); opacity: 1;} }
-    @keyframes floatUpDown { 0%{ transform: translateY(0);} 50%{ transform: translateY(-15px);} 100%{ transform: translateY(0);} }
-    @keyframes fadeVs { from{ opacity: 0;} to{ opacity: 1;} }
-    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; }
-    .card { max-width: 800px; margin: auto; background: rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); animation: fadeIn 1s ease-out; overflow: hidden; position: relative; }
-    header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; text-align: center; padding: 80px 20px 120px; }
+    .card { max-width: 800px; margin: 120px auto; background: rgba(255,255,255,0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); }
+    header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 80px 20px 120px; text-align: center; }
     .crest { position: absolute; top: 20px; left: 20px; width: 90px; }
-    .mute-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
-    .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: glow 2s infinite alternate; }
-    .subtitle { font-size: 1.4rem; font-weight: 400; margin-bottom: 24px; }
-    .shields { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 24px; }
-    .shields img { width: 80px; }
-    .shields .barca { animation: slideInLeft 1s ease-out, floatUpDown 3s ease-in-out infinite; }
-    .shields .inter { animation: slideInRight 1s ease-out, floatUpDown 3s ease-in-out infinite; }
-    .shields .vs { font-size: 1.5rem; font-weight: 700; animation: fadeVs 1.5s ease-in; }
+    .mute-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+    .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: sparkle 3s infinite; }
+    .subtitle { font-size: 1.4rem; margin-bottom: 24px; }
+    .shields { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+    .shields img { width: 80px; animation: floatUpDown 3s infinite; }
+    .vs { font-size: 1.5rem; font-weight: 700; animation: fadeIn 1.5s ease-in; }
     .countdown { margin-top: 16px; font-weight: 600; }
     main.inside { display: flex; flex-wrap: wrap; }
-    .panel { flex: 1 1 300px; padding: 24px 32px; animation: fadeIn 1.2s ease-out; }
+    .panel { flex: 1 1 300px; padding: 24px; }
     .left { background: #fafafa; }
     .right { background: #fff; }
     .panel p { margin-bottom: 16px; line-height: 1.6; }
-    .cta { display: inline-block; padding: 12px 28px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; animation: pulse 2s infinite; transition: background 0.3s; margin-top: 16px; }
-    .cta:hover { background: var(--secondary); }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-top: 16px; }
+    .panel.right .cta { display: inline-block; padding: 12px 28px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-weight: 600; animation: pulse 2s infinite; transition: background 0.3s; }
+    .panel.right .cta:disabled { opacity: 0.6; cursor: default; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 8px; margin-top: 16px; }
     .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s; }
-    .gallery img:hover { transform: scale(1.05) rotate(1deg); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; }
-    #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; }
-    @media print { body { background: #fff; } .card { width: 210mm; box-shadow: none; margin: 0; } }
+    .gallery img:hover { transform: scale(1.05) rotate(1deg); }
+    #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: opacity 0.3s; }
+    #lightbox.visible { visibility: visible; opacity: 1; }
+    #playGame { display: block; margin: 24px auto; padding: 12px 24px; background: var(--primary); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; animation: pulse 2s infinite; }
+    #game { display: none; max-width: 400px; margin: 16px auto 40px; text-align: center; }
+    #grid { display: grid; grid-template-rows: repeat(8, 1fr); gap: 4px; margin-bottom: 16px; }
+    .row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+    .cell { width: 48px; height: 48px; border: 2px solid #555; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 600; text-transform: uppercase; }
+    .correct { background: var(--correct); border-color: var(--correct); }
+    .present { background: var(--present); border-color: var(--present); }
+    .absent { background: var(--absent); border-color: var(--absent); color: #fff; }
+    #inputRow { display: flex; justify-content: center; gap: 4px; margin-bottom: 8px; }
+    #guessInput { width: 240px; padding: 8px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc; text-transform: uppercase; }
+    #guessBtn { padding: 8px 16px; border: none; border-radius: 8px; background: var(--secondary); color: #fff; cursor: pointer; }
+    #gameMsg { margin-top: 8px; font-weight: bold; color: #212121; }
   </style>
 </head>
 <body>
   <div id="intro">
-    <h1>✨ Feliç 26è Aniversari, Ariadna, el meu amor! ✨</h1>
-    <p>Ari, t'estimo molt. Gràcies per cada moment que hem compartit i compartirem al llarg de la nostra vida.</p>
+    <h1>✨ Feliç 26è Aniversari, Ariadna! ✨</h1>
+    <p>Ari, t'estimo molt. Gràcies per cada moment compartit i els que vindran.</p>
     <button id="openBtn">Descobreix la Sorpresa</button>
     <audio id="hoverAudio" src="https://jordiguell.github.io/FELICITACI-/Official-Anthem.wav" preload="auto"></audio>
   </div>
@@ -77,22 +81,24 @@
       <div class="shields">
         <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="barca">
         <span class="vs">VS</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Miliano_2021.svg.png" alt="Escut Inter" class="inter">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Milano_2021.svg.png" alt="Escut Inter" class="inter">
       </div>
-      <div class="countdown" id="countdown">Carregant temps…</div>
+      <div class="countdown" id="countdown"></div>
     </header>
     <main class="inside">
       <section class="panel left">
-        <p>En aquest dia tan especial, <strong>23 d’abril de 2025</strong>, celebrem el teu aniversari, la joia més bonica de l’any.</p>
-        <p>I t’ho vull agrair amb unes entrades per veure la semifinal del Barça contra l’Inter; m’ompliries de felicitat si les acceptessis i anéissim junts a veure el partit.</p>
+        <p>En aquest dia tant especial, <strong>23 d’abril de 2025</strong>, celebrem el teu aniversari, la joia més bonica de l’any.</p>
+        <p>I t’ho vull agrair amb entrades per veure la semifinal del Barça vs Inter; m’ompliries de felicitat si les acceptessis i anéssim junts a veure el partit.</p>
         <p>T’estimo molt, Ari.</p>
         <p>Jo, Jordi, com a cavaller que va vèncer el drac, et pregunto:</p>
-        <p style="font-size: 1.5rem; font-weight: 700; margin-top: 16px;">Vols ser la meva princesa?</p>
+        <p style="font-size:1.5rem;font-weight:700;">Vols ser la meva princesa?</p>
+        <div style="font-size:4rem;text-align:center;margin:16px 0;">🌹</div>
       </section>
       <section class="panel right">
         <p><strong>Data:</strong> 30 d’abril de 2025</p>
         <p><strong>Partit:</strong> Barça vs Inter</p>
-        <button id="ticketBtn" class="cta" disabled>Entrades disponibles 24 h abans del partit</button>
+        <p><strong>Hora:</strong> 21.00 h</p>
+        <button id="ticketBtn" class="cta" disabled>Entrades 24h abans</button>
         <div class="gallery">
           <img src="https://i.imgur.com/xqDJVf1.jpeg" alt="Moment inoblidable 1">
           <img src="https://i.imgur.com/c17SIzA.jpeg" alt="Moment inoblidable 2">
@@ -103,61 +109,29 @@
         </div>
       </section>
     </main>
+    <button id="playGame">JUGAR!</button>
+    <div id="game">
+      <h3>Desxifra la paraula (6 lletres)</h3>
+      <div id="grid"></div>
+      <div id="inputRow">
+        <input type="text" id="guessInput" maxlength="6" placeholder="Escriu...">
+        <button id="guessBtn">Prova</button>
+      </div>
+      <div id="gameMsg"></div>
+    </div>
   </div>
   <div id="lightbox"></div>
   <script>
-    const openBtn = document.getElementById('openBtn');
-    const intro = document.getElementById('intro');
-    const card = document.getElementById('cardContainer');
-    const confettiCanvas = document.getElementById('confetti-canvas');
-    const galleryImgs = document.querySelectorAll('.gallery img');
-    const lightbox = document.getElementById('lightbox');
-    const audio = document.getElementById('hoverAudio');
-    const muteBtn = document.getElementById('muteBtn');
-    const ticketBtn = document.getElementById('ticketBtn');
-
-    muteBtn.addEventListener('click', () => {
-      if (!audio.paused) { audio.pause(); muteBtn.textContent = '🔈'; } else { audio.play(); muteBtn.textContent = '🔇'; }
+    document.addEventListener('DOMContentLoaded',()=>{
+      const openBtn=document.getElementById('openBtn'), intro=document.getElementById('intro'), card=document.getElementById('cardContainer'), confettiCanvas=document.getElementById('confetti-canvas'), audio=document.getElementById('hoverAudio'), muteBtn=document.getElementById('muteBtn'), ticketBtn=document.getElementById('ticketBtn'), galleryImgs=document.querySelectorAll('.gallery img'), lightbox=document.getElementById('lightbox'), playBtn=document.getElementById('playGame'), game=document.getElementById('game'), grid=document.getElementById('grid'), input=document.getElementById('guessInput'), btn=document.getElementById('guessBtn'), msg=document.getElementById('gameMsg');
+      muteBtn.addEventListener('click',()=>{audio.paused?audio.play():audio.pause();muteBtn.textContent=audio.paused?'🔈':'🔇';});
+      function checkTicket(){const now=new Date(), avail=new Date('2025-04-29T00:00:00'); if(now>=avail&&ticketBtn.disabled){ticketBtn.disabled=false;ticketBtn.textContent='Obrir Entrades';ticketBtn.onclick=()=>window.open('TICKETS_PDF_URL','_blank');}} checkTicket(); setInterval(checkTicket,3600000);
+      galleryImgs.forEach(img=>img.addEventListener('click',()=>{lightbox.innerHTML=`<img src='${img.src}' style='max-width:90%;max-height:90%;'>`;lightbox.classList.add('visible');})); lightbox.addEventListener('click',()=>lightbox.classList.remove('visible'));
+      openBtn.addEventListener('click',()=>{document.documentElement.style.overflow='auto';document.body.style.overflow='auto';audio.currentTime=0;audio.play().catch(console.warn);intro.style.display='none';card.style.display='block';confettiCanvas.style.display='block';const cfInt=setInterval(()=>confetti({particleCount:200,spread:360}),500);setTimeout(()=>clearInterval(cfInt),5000);setInterval(updateCountdown,1000); updateCountdown();});
+      function updateCountdown(){const target=new Date('2025-04-30T00:00:00'), now=new Date(), diff=target-now; document.getElementById('countdown').textContent = diff<=0?'Avui és el gran dia!':`${Math.floor(diff/86400000)} dies, ${Math.floor((diff%86400000)/3600000)} h, ${Math.floor((diff%3600000)/60000)} min`;}
+      // Wordle-like game
+      const secret='PINGUI', maxAttempts=8; let attempt=0; game.style.display='none'; playBtn.addEventListener('click',()=>{playBtn.style.display='none'; game.style.display='block'; input.focus();}); for(let i=0;i<maxAttempts;i++){const row=document.createElement('div');row.className='row'; for(let j=0;j<6;j++){const cell=document.createElement('div');cell.className='cell';row.append(cell);} grid.append(row);} btn.addEventListener('click',()=>{const guess=input.value.toUpperCase(); if(guess.length!==6){msg.textContent='Ha de ser de 6 lletres'; return;} msg.textContent=''; if(attempt>=maxAttempts) return; const row=grid.children[attempt]; let secretArr=secret.split(''), guessArr=guess.split(''); for(let i=0;i<6;i++){const cell=row.children[i]; cell.textContent=guessArr[i]; if(guessArr[i]===secretArr[i]){cell.classList.add('correct');secretArr[i]=null;guessArr[i]=null;}} for(let i=0;i<6;i++){ if(guessArr[i]){const cell=row.children[i]; const idx=secretArr.indexOf(guessArr[i]); if(idx>-1){cell.classList.add('present');secretArr[idx]=null;} else {cell.classList.add('absent');}}} if(guess===secret){msg.textContent='MOLT BEE!!!! Ets la millor!!!!!'; btn.disabled=true; input.disabled=true; return;} attempt++; input.value=''; input.focus(); if(attempt>=maxAttempts){btn.disabled=true; msg.textContent=`S'ha acabat! La paraula era ${secret}`;}});
     });
-
-    function checkTicketAvailability() {
-      const now = new Date(); const threshold = new Date('2025-04-29T00:00:00');
-      if (now >= threshold && ticketBtn.disabled) {
-        ticketBtn.disabled = false; ticketBtn.textContent = 'Obrir Entrades';
-        ticketBtn.addEventListener('click', () => { window.open('TICKETS_PDF_URL', '_blank'); });
-      }
-    }
-    checkTicketAvailability(); setInterval(checkTicketAvailability, 3600 * 1000);
-
-    function launchConfetti() {
-      const myConfetti = confetti.create(confettiCanvas, { resize: true });
-      myConfetti({ particleCount: 80, spread: 160 });
-    }
-
-    function updateCountdown() {
-      const target = new Date('2025-04-30T00:00:00'); const now = new Date(); const diff = target - now;
-      if (diff <= 0) { document.getElementById('countdown').textContent = 'Avui és el gran dia!'; return; }
-      const d = Math.floor(diff / 86400000); const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000); const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
-    }
-
-    openBtn.addEventListener('click', () => {
-      // Habilita l'scroll després del click
-      document.documentElement.style.overflow = 'auto';
-      document.body.style.overflow = 'auto';
-      // Reproduir àudio i revelar la sorpresa
-      audio.currentTime = 0; audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
-      intro.style.display = 'none'; card.style.display = 'block'; confettiCanvas.style.display = 'block';
-      updateCountdown(); setInterval(updateCountdown, 1000);
-      launchConfetti(); setInterval(launchConfetti, 3000);
-    });
-
-    galleryImgs.forEach(img => img.addEventListener('click', () => {
-      lightbox.innerHTML = `<img src='${img.src}' alt=''>`;
-      lightbox.style.display = 'flex';
-    }));
-    lightbox.addEventListener('click', () => lightbox.style.display = 'none');
   </script>
 </body>
 </html>
