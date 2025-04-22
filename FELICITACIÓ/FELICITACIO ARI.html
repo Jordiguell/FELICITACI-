@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>🎂 26è Aniversari Ariadna</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    :root { --primary: #003a6c; --secondary: #a40034; --glow: rgba(255,255,255,0.8); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; }
+    body { background: url('https://www.fcbarcelona.com/photo-resources/2023/09/27/8d5e5d95-014e-400c-aa2a-7cc9fdc803ef/FCB_Celta-001.jpg?width=1200&height=750') center/cover no-repeat; }
+    /* Intro screen */
+    #intro { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; }
+    #intro h1 { font-size: 3rem; text-shadow: 0 0 10px #000; margin-bottom: 16px; animation: glow 2s infinite alternate; }
+    #intro p { font-size: 1.1rem; margin-bottom: 24px; }
+    #intro button { padding: 14px 32px; font-size: 1.2rem; background: var(--secondary); color: #fff; border: none; border-radius: 8px; cursor: pointer; animation: pulse 2s infinite; }
+    #intro button:hover { background: var(--primary); }
+    #cardContainer, #confetti-canvas { display: none; }
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes glow { from { text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow); } to { text-shadow: 0 0 20px var(--glow), 0 0 30px var(--glow); } }
+    @keyframes pulse { 0%{ transform: scale(1); } 50%{ transform: scale(1.05); } 100%{ transform: scale(1); } }
+    /* Shields animations */
+    @keyframes slideInLeft { from { transform: translateX(-150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideInRight { from { transform: translateX(150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes floatUpDown { 0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); } }
+    @keyframes fadeVs { from { opacity: 0; } to { opacity: 1; } }
+    /* Confetti canvas */
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; }
+    /* Card */
+    .card { max-width: 800px; margin: auto; background: rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); animation: fadeIn 1s ease-out; overflow: hidden; position: relative; }
+    header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; text-align: center; padding: 80px 20px 120px; }
+    /* Removed float animation from crest */
+    .crest { position: absolute; top: 20px; left: 20px; width: 90px; }
+    .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: glow 2s infinite alternate; }
+    .subtitle { font-size: 1.5rem; font-weight: 400; margin-bottom: 24px; }
+    .shields { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 24px; }
+    .shields img { width: 80px; }
+    .shields .barca { animation: slideInLeft 1s ease-out, floatUpDown 3s ease-in-out infinite; }
+    .shields .inter { animation: slideInRight 1s ease-out, floatUpDown 3s ease-in-out infinite; }
+    .shields .vs { font-size: 1.5rem; font-weight: 700; animation: fadeVs 1.5s ease-in; }
+    .countdown { margin-top: 16px; font-weight: 600; }
+    main.inside { display: flex; flex-wrap: wrap; }
+    .panel { flex: 1 1 300px; padding: 24px 32px; animation: fadeIn 1.2s ease-out; }
+    .left { background: #fafafa; }
+    .right { background: #fff; }
+    .panel p { margin-bottom: 16px; line-height: 1.5; }
+    .cta { display: inline-block; padding: 12px 28px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; animation: pulse 2s infinite; transition: background 0.3s; margin-top: 16px; }
+    .cta:hover { background: var(--secondary); }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; margin-top: 16px; }
+    .gallery img { width: 100%; border-radius: 8px; cursor: pointer; transition: transform 0.3s; }
+    .gallery img:hover { transform: scale(1.05) rotate(1deg); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    /* Lightbox */
+    #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; }
+    #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+    @media print { body { background: #fff; } .card { width: 210mm; box-shadow: none; margin: 0; } }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <h1>🎉 Feliç 26è Aniversari, Ariadna! 🎉</h1>
+    <p>Avui celebrem tu, la meva millor companya de vida i de somnis.</p>
+    <button id="openBtn">Descobreix la Sorpresa</button>
+    <!-- Àudio per a l'efecte hover -->
+    <audio id="hoverAudio" src="AUDIO_URL" preload="auto"></audio>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+  <div class="card" id="cardContainer">
+    <header class="cover">
+      <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="crest">
+      <h2 class="main-title">26 Anys de Passió</h2>
+      <h3 class="subtitle">Amb tu, tot és blaugrana</h3>
+      <div class="shields">
+        <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="barca">
+        <span class="vs">VS</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Milano_2021.svg.png" alt="Escut Inter" class="inter">
+      </div>
+      <div class="countdown" id="countdown">Carregant temps…</div>
+    </header>
+    <main class="inside">
+      <section class="panel left">
+        <p>Avui és el teu 26è gir al sol. Gràcies per il·luminar cada dia amb la teva alegria i passió inigualable.</p>
+        <p>Que aquest aniversari sigui tan inoblidable com els moments que compartim al Camp Nou i a la vida.</p>
+      </section>
+      <section class="panel right">
+        <p><strong>Data:</strong> 30 d’abril de 2025</p>
+        <p><strong>Partit:</strong> Barça vs Inter</p>
+        <a href="TICKETS_PDF_URL" class="cta">Obrir Entrades</a>
+        <div class="gallery">
+          <img src="https://i.imgur.com/xqDJVf1.jpeg" alt="Moment nostre 1">
+          <img src="https://i.imgur.com/c17SIzA.jpeg" alt="Moment nostre 2">
+          <img src="https://i.imgur.com/QJQitdZ.jpeg" alt="Moment nostre 3">
+          <img src="https://i.imgur.com/tYeUzou.jpeg" alt="Moment nostre 4">
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="lightbox"></div>
+  <script>
+    const openBtn = document.getElementById('openBtn');
+    const intro = document.getElementById('intro');
+    const card = document.getElementById('cardContainer');
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const galleryImgs = document.querySelectorAll('.gallery img');
+    const lightbox = document.getElementById('lightbox');
+
+    function launchConfetti() {
+      const myConfetti = confetti.create(confettiCanvas, { resize: true });
+      myConfetti({ particleCount: 80, spread: 160 });
+    }
+    function updateCountdown() {
+      const target = new Date('2025-04-30T00:00:00');
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = 'Avui és el gran dia!'; return;
+      }
+      const d = Math.floor(diff / 86400000); const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000); const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
+    }
+    // Reprodueix cançó quan es fa hover
+    openBtn.addEventListener('mouseover', () => {
+      const audio = document.getElementById('hoverAudio');
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    openBtn.addEventListener('click', () => {
+      intro.style.display = 'none'; card.style.display = 'block'; confettiCanvas.style.display = 'block';
+      updateCountdown(); setInterval(updateCountdown,1000); launchConfetti(); setInterval(launchConfetti,3000);
+    });
+    galleryImgs.forEach(img => img.addEventListener('click', () => {
+      lightbox.innerHTML = `<img src='${img.src}' alt=''>`; lightbox.style.display = 'flex';
+    }));
+    lightbox.addEventListener('click', () => lightbox.style.display = 'none');
+  </script>
+</body>
+</html>
