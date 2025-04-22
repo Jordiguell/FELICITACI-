@@ -121,8 +121,19 @@
       const m = Math.floor((diff % 3600000) / 60000); const s = Math.floor((diff % 60000) / 1000);
       document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
     }
-    // Reprodueix cançó quan es fa hover
-    openBtn.addEventListener('mouseover', () => {
+    // Reprodueix cançó quan es fa click
+    openBtn.addEventListener('click', () => {
+      // Reproduir àudio
+      const audio = document.getElementById('hoverAudio');
+      audio.currentTime = 0;
+      audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
+      // Mostrar felicitació
+      intro.style.display = 'none';
+      card.style.display = 'block';
+      confettiCanvas.style.display = 'block';
+      updateCountdown(); setInterval(updateCountdown,1000);
+      launchConfetti(); setInterval(launchConfetti,3000);
+    });('mouseover', () => {
       const audio = document.getElementById('hoverAudio');
       audio.currentTime = 0;
       audio.play();
