@@ -2,40 +2,43 @@
 <html lang="ca">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>🎂 26è Aniversari Ariadna</title>
+  <!-- SEO Meta -->
+  <meta name="description" content="Celebrem el 26è aniversari de l'Ariadna amb una felicitació especial i entrades per al Barça vs Inter el 30 d’abril de 2025.">
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="Feliç 26è Aniversari, Ariadna!">
+  <meta property="og:description" content="Celebrem el teu dia amb amor, confeti i entrades per veure la semifinal Barça vs Inter. Vols ser la meva princesa?">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jordiguell.github.io/FELICITACI-/">
+  <meta property="og:image" content="https://jordiguell.github.io/FELICITACI-/i.imgur.com/22TRXPn.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     :root { --primary: #003a6c; --secondary: #a40034; --glow: rgba(255,255,255,0.8); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      /* Permet l'scroll amb la rodeta o el dit */
-      height: auto;
-      overflow-y: auto;
-      font-family: 'Montserrat', sans-serif;
-    }
-    body { background: url('https://www.fcbarcelona.com/photo-resources/2023/09/27/8d5e5d95-014e-400c-aa2a-7cc9fdc803ef/FCB_Celta-001.jpg?width=1200&height=750') center/cover no-repeat; }
+    html, body { height: auto; overflow-y: auto; font-family: 'Montserrat', sans-serif; }
+    body { background: url('https://www.fcbarcelona.com/photo-resources/2023/09/27/8d5e5d95-014e-400c-aa2a-7cc9fdc803ef/FCB_Celta-001.jpg?width=1200&height=750') center center / cover no-repeat fixed; }
     #intro { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; }
     #intro h1 { font-size: 3rem; text-shadow: 0 0 10px #000; margin-bottom: 16px; animation: glow 2s infinite alternate; }
-    #intro p { font-size: 1.1rem; margin-bottom: 24px; }
+    #intro p { font-size: 1.2rem; margin-bottom: 24px; max-width: 600px; }
     #intro button { padding: 14px 32px; font-size: 1.2rem; background: var(--secondary); color: #fff; border: none; border-radius: 8px; cursor: pointer; animation: pulse 2s infinite; }
     #intro button:hover { background: var(--primary); }
     #cardContainer, #confetti-canvas { display: none; }
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes glow { from { text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow); } to { text-shadow: 0 0 20px var(--glow), 0 0 30px var(--glow); } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-    @keyframes slideInLeft { from { transform: translateX(-150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes slideInRight { from { transform: translateX(150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes floatUpDown { 0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); } }
-    @keyframes fadeVs { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse { 0%{ transform: scale(1);} 50%{ transform: scale(1.05);} 100%{ transform: scale(1);} }
+    @keyframes slideInLeft { from { transform: translateX(-150%); opacity: 0;} to { transform: translateX(0); opacity: 1;} }
+    @keyframes slideInRight { from { transform: translateX(150%); opacity: 0;} to { transform: translateX(0); opacity: 1;} }
+    @keyframes floatUpDown { 0%{ transform: translateY(0);} 50%{ transform: translateY(-15px);} 100%{ transform: translateY(0);} }
+    @keyframes fadeVs { from{ opacity: 0;} to{ opacity: 1;} }
     #confetti-canvas { position: fixed; inset: 0; pointer-events: none; }
     .card { max-width: 800px; margin: auto; background: rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); animation: fadeIn 1s ease-out; overflow: hidden; position: relative; }
     header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; text-align: center; padding: 80px 20px 120px; }
     .crest { position: absolute; top: 20px; left: 20px; width: 90px; }
     .mute-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
     .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: glow 2s infinite alternate; }
-    .subtitle { font-size: 1.5rem; font-weight: 400; margin-bottom: 24px; }
+    .subtitle { font-size: 1.4rem; font-weight: 400; margin-bottom: 24px; }
     .shields { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 24px; }
     .shields img { width: 80px; }
     .shields .barca { animation: slideInLeft 1s ease-out, floatUpDown 3s ease-in-out infinite; }
@@ -46,11 +49,11 @@
     .panel { flex: 1 1 300px; padding: 24px 32px; animation: fadeIn 1.2s ease-out; }
     .left { background: #fafafa; }
     .right { background: #fff; }
-    .panel p { margin-bottom: 16px; line-height: 1.5; }
+    .panel p { margin-bottom: 16px; line-height: 1.6; }
     .cta { display: inline-block; padding: 12px 28px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; animation: pulse 2s infinite; transition: background 0.3s; margin-top: 16px; }
     .cta:hover { background: var(--secondary); }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; margin-top: 16px; }
-    .gallery img { width: 100%; border-radius: 8px; cursor: pointer; transition: transform 0.3s; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-top: 16px; }
+    .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s; }
     .gallery img:hover { transform: scale(1.05) rotate(1deg); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; }
     #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; }
@@ -59,8 +62,8 @@
 </head>
 <body>
   <div id="intro">
-    <h1>🎉 Feliç 26è Aniversari, Ariadna! 🎉</p>
-    <p>Avui celebrem tu, la meva millor companya de vida i de somnis.</p>
+    <h1>✨ Feliç 26è Aniversari, Ariadna, el meu amor! ✨</h1>
+    <p>Ari, t'estimo molt. Gràcies per cada moment que hem compartit i compartirem al llarg de la nostra vida.</p>
     <button id="openBtn">Descobreix la Sorpresa</button>
     <audio id="hoverAudio" src="https://jordiguell.github.io/FELICITACI-/Official-Anthem.wav" preload="auto"></audio>
   </div>
@@ -69,29 +72,34 @@
     <header class="cover">
       <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="crest">
       <button id="muteBtn" class="mute-btn" title="Apaga música">🔇</button>
-      <h2 class="main-title">26 Anys de Passió</h2>
-      <h3 class="subtitle">Amb tu, tot és blaugrana</h3>
+      <h2 class="main-title">26 Anys d'Amor i Aventures</h2>
+      <h3 class="subtitle">Amb tu cada batec és un somni fet realitat</h3>
       <div class="shields">
         <img src="https://i.imgur.com/22TRXPn.png" alt="Escut Barça" class="barca">
         <span class="vs">VS</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Milano_2021.svg.png" alt="Escut Inter" class="inter">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/250px-FC_Internazionale_Miliano_2021.svg.png" alt="Escut Inter" class="inter">
       </div>
       <div class="countdown" id="countdown">Carregant temps…</div>
     </header>
     <main class="inside">
       <section class="panel left">
-        <p>Avui és el teu 26è gir al sol. Gràcies per il·luminar cada dia amb la teva alegria i passió inigualable.</p>
-        <p>Que aquest aniversari sigui tan inoblidable com els moments que compartim al Camp Nou i a la vida.</p>
+        <p>En aquest dia tan especial, <strong>23 d’abril de 2025</strong>, celebrem el teu aniversari, la joia més bonica de l’any.</p>
+        <p>I t’ho vull agrair amb unes entrades per veure la semifinal del Barça contra l’Inter; m’ompliries de felicitat si les acceptessis i anéissim junts a veure el partit.</p>
+        <p>T’estimo molt, Ari.</p>
+        <p>Jo, Jordi, com a cavaller que va vèncer el drac, et pregunto:</p>
+        <p style="font-size: 1.5rem; font-weight: 700; margin-top: 16px;">Vols ser la meva princesa?</p>
       </section>
       <section class="panel right">
         <p><strong>Data:</strong> 30 d’abril de 2025</p>
         <p><strong>Partit:</strong> Barça vs Inter</p>
         <button id="ticketBtn" class="cta" disabled>Entrades disponibles 24 h abans del partit</button>
         <div class="gallery">
-          <img src="https://i.imgur.com/xqDJVf1.jpeg" alt="Moment nostre 1">
-          <img src="https://i.imgur.com/c17SIzA.jpeg" alt="Moment nostre 2">
-          <img src="https://i.imgur.com/QJQitdZ.jpeg" alt="Moment nostre 3">
-          <img src="https://i.imgur.com/tYeUzou.jpeg" alt="Moment vostre 4">
+          <img src="https://i.imgur.com/xqDJVf1.jpeg" alt="Moment inoblidable 1">
+          <img src="https://i.imgur.com/c17SIzA.jpeg" alt="Moment inoblidable 2">
+          <img src="https://i.imgur.com/QJQitdZ.jpeg" alt="Moment inoblidable 3">
+          <img src="https://i.imgur.com/tYeUzou.jpeg" alt="Moment inoblidable 4">
+          <img src="https://i.imgur.com/a94NxSj.jpeg" alt="Moment inoblidable 5">
+          <img src="https://i.imgur.com/gZ8BDLf.jpeg" alt="Moment inoblidable 6">
         </div>
       </section>
     </main>
@@ -108,65 +116,43 @@
     const muteBtn = document.getElementById('muteBtn');
     const ticketBtn = document.getElementById('ticketBtn');
 
-    // Botó per apagar/posar música
     muteBtn.addEventListener('click', () => {
-      if (!audio.paused) {
-        audio.pause();
-        muteBtn.textContent = '🔈';
-      } else {
-        audio.play();
-        muteBtn.textContent = '🔇';
-      }
+      if (!audio.paused) { audio.pause(); muteBtn.textContent = '🔈'; } else { audio.play(); muteBtn.textContent = '🔇'; }
     });
 
-    // Habilitar botó d'entrades 24h abans del partit
     function checkTicketAvailability() {
-      const now = new Date();
-      const threshold = new Date('2025-04-29T00:00:00');
+      const now = new Date(); const threshold = new Date('2025-04-29T00:00:00');
       if (now >= threshold && ticketBtn.disabled) {
-        ticketBtn.disabled = false;
-        ticketBtn.textContent = 'Obrir Entrades';
-        ticketBtn.addEventListener('click', () => {
-          window.open('TICKETS_PDF_URL', '_blank');
-        });
+        ticketBtn.disabled = false; ticketBtn.textContent = 'Obrir Entrades';
+        ticketBtn.addEventListener('click', () => { window.open('TICKETS_PDF_URL', '_blank'); });
       }
     }
-    checkTicketAvailability();
-    setInterval(checkTicketAvailability, 3600 * 1000);
+    checkTicketAvailability(); setInterval(checkTicketAvailability, 3600 * 1000);
 
-    // Animacions i so al click
     function launchConfetti() {
       const myConfetti = confetti.create(confettiCanvas, { resize: true });
       myConfetti({ particleCount: 80, spread: 160 });
     }
+
     function updateCountdown() {
-      const target = new Date('2025-04-30T00:00:00');
-      const now = new Date();
-      const diff = target - now;
-      if (diff <= 0) {
-        document.getElementById('countdown').textContent = 'Avui és el gran dia!';
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
+      const target = new Date('2025-04-30T00:00:00'); const now = new Date(); const diff = target - now;
+      if (diff <= 0) { document.getElementById('countdown').textContent = 'Avui és el gran dia!'; return; }
+      const d = Math.floor(diff / 86400000); const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000); const s = Math.floor((diff % 60000) / 1000);
       document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
     }
+
     openBtn.addEventListener('click', () => {
-      // Reproduir àudio i mostrar felicitació
-      audio.currentTime = 0;
-      audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
-      intro.style.display = 'none';
-      card.style.display = 'block';
-      confettiCanvas.style.display = 'block';
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-      launchConfetti();
-      setInterval(launchConfetti, 3000);
+      // Habilita l'scroll després del click
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';
+      // Reproduir àudio i revelar la sorpresa
+      audio.currentTime = 0; audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
+      intro.style.display = 'none'; card.style.display = 'block'; confettiCanvas.style.display = 'block';
+      updateCountdown(); setInterval(updateCountdown, 1000);
+      launchConfetti(); setInterval(launchConfetti, 3000);
     });
 
-    // Lightbox per imatges
     galleryImgs.forEach(img => img.addEventListener('click', () => {
       lightbox.innerHTML = `<img src='${img.src}' alt=''>`;
       lightbox.style.display = 'flex';
