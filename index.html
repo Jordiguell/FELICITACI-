@@ -24,7 +24,7 @@
     #cardContainer, #confetti-canvas { display: none; }
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes glow { from { text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow); } to { text-shadow: 0 0 20px var(--glow), 0 0 30px var(--glow); } }
-    @keyframes pulse { 0%{ transform: scale(1); } 50%{ transform: scale(1.05); } 100%{ transform: scale(1); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     @keyframes slideInLeft { from { transform: translateX(-150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes slideInRight { from { transform: translateX(150%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes floatUpDown { 0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); } }
@@ -33,7 +33,6 @@
     .card { max-width: 800px; margin: auto; background: rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); backdrop-filter: blur(8px); animation: fadeIn 1s ease-out; overflow: hidden; position: relative; }
     header.cover { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; text-align: center; padding: 80px 20px 120px; }
     .crest { position: absolute; top: 20px; left: 20px; width: 90px; }
-    /* Mute button style */
     .mute-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
     .main-title { font-size: 2.5rem; margin-bottom: 8px; animation: glow 2s infinite alternate; }
     .subtitle { font-size: 1.5rem; font-weight: 400; margin-bottom: 24px; }
@@ -60,7 +59,7 @@
 </head>
 <body>
   <div id="intro">
-    <h1>🎉 Feliç 26è Aniversari, Ariadna! 🎉</h1>
+    <h1>🎉 Feliç 26è Aniversari, Ariadna! 🎉</p>
     <p>Avui celebrem tu, la meva millor companya de vida i de somnis.</p>
     <button id="openBtn">Descobreix la Sorpresa</button>
     <audio id="hoverAudio" src="https://jordiguell.github.io/FELICITACI-/Official-Anthem.wav" preload="auto"></audio>
@@ -107,6 +106,7 @@
     const lightbox = document.getElementById('lightbox');
     const audio = document.getElementById('hoverAudio');
     const muteBtn = document.getElementById('muteBtn');
+    const ticketBtn = document.getElementById('ticketBtn');
 
     // Botó per apagar/posar música
     muteBtn.addEventListener('click', () => {
@@ -118,8 +118,8 @@
         muteBtn.textContent = '🔇';
       }
     });
+
     // Habilitar botó d'entrades 24h abans del partit
-    const ticketBtn = document.getElementById('ticketBtn');
     function checkTicketAvailability() {
       const now = new Date();
       const threshold = new Date('2025-04-29T00:00:00');
@@ -133,9 +133,8 @@
     }
     checkTicketAvailability();
     setInterval(checkTicketAvailability, 3600 * 1000);
-    
-    openBtn.addEventListener('click',
 
+    // Animacions i so al click
     function launchConfetti() {
       const myConfetti = confetti.create(confettiCanvas, { resize: true });
       myConfetti({ particleCount: 80, spread: 160 });
@@ -145,7 +144,8 @@
       const now = new Date();
       const diff = target - now;
       if (diff <= 0) {
-        document.getElementById('countdown').textContent = 'Avui és el gran dia!'; return;
+        document.getElementById('countdown').textContent = 'Avui és el gran dia!';
+        return;
       }
       const d = Math.floor(diff / 86400000);
       const h = Math.floor((diff % 86400000) / 3600000);
@@ -154,14 +154,19 @@
       document.getElementById('countdown').textContent = `${d} dies, ${h} h, ${m} min, ${s} s`;
     }
     openBtn.addEventListener('click', () => {
+      // Reproduir àudio i mostrar felicitació
       audio.currentTime = 0;
       audio.play().catch(err => console.warn('No s’ha pogut reproduir l’àudio:', err));
       intro.style.display = 'none';
       card.style.display = 'block';
       confettiCanvas.style.display = 'block';
-      updateCountdown(); setInterval(updateCountdown,1000);
-      launchConfetti(); setInterval(launchConfetti,3000);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      launchConfetti();
+      setInterval(launchConfetti, 3000);
     });
+
+    // Lightbox per imatges
     galleryImgs.forEach(img => img.addEventListener('click', () => {
       lightbox.innerHTML = `<img src='${img.src}' alt=''>`;
       lightbox.style.display = 'flex';
