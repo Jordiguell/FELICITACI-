@@ -9,7 +9,12 @@
   <style>
     :root { --primary: #003a6c; --secondary: #a40034; --glow: rgba(255,255,255,0.8); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; }
+    html, body {
+      /* Permet l'scroll amb la rodeta o el dit */
+      height: auto;
+      overflow-y: auto;
+      font-family: 'Montserrat', sans-serif;
+    }
     body { background: url('https://www.fcbarcelona.com/photo-resources/2023/09/27/8d5e5d95-014e-400c-aa2a-7cc9fdc803ef/FCB_Celta-001.jpg?width=1200&height=750') center/cover no-repeat; }
     #intro { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; }
     #intro h1 { font-size: 3rem; text-shadow: 0 0 10px #000; margin-bottom: 16px; animation: glow 2s infinite alternate; }
@@ -82,7 +87,7 @@
       <section class="panel right">
         <p><strong>Data:</strong> 30 d’abril de 2025</p>
         <p><strong>Partit:</strong> Barça vs Inter</p>
-        <button class="cta" disabled>Entrades disponibles 24 h abans del partit</button>
+        <button id="ticketBtn" class="cta" disabled>Entrades disponibles 24 h abans del partit</button>
         <div class="gallery">
           <img src="https://i.imgur.com/xqDJVf1.jpeg" alt="Moment nostre 1">
           <img src="https://i.imgur.com/c17SIzA.jpeg" alt="Moment nostre 2">
@@ -113,6 +118,23 @@
         muteBtn.textContent = '🔇';
       }
     });
+    // Habilitar botó d'entrades 24h abans del partit
+    const ticketBtn = document.getElementById('ticketBtn');
+    function checkTicketAvailability() {
+      const now = new Date();
+      const threshold = new Date('2025-04-29T00:00:00');
+      if (now >= threshold && ticketBtn.disabled) {
+        ticketBtn.disabled = false;
+        ticketBtn.textContent = 'Obrir Entrades';
+        ticketBtn.addEventListener('click', () => {
+          window.open('TICKETS_PDF_URL', '_blank');
+        });
+      }
+    }
+    checkTicketAvailability();
+    setInterval(checkTicketAvailability, 3600 * 1000);
+    
+    openBtn.addEventListener('click',
 
     function launchConfetti() {
       const myConfetti = confetti.create(confettiCanvas, { resize: true });
